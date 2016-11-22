@@ -37,7 +37,8 @@ export class FieldComponent {
 
     public field: any[];
 
-    private nowWalk: Gamers;
+    private activeGamer: Gamers;
+    private countAction: number;
 
 
     /**
@@ -45,7 +46,8 @@ export class FieldComponent {
      */
     constructor(private gameService: GameService) {
         this.field = [];
-        this.nowWalk = Gamers.User;
+        this.activeGamer = Gamers.User;
+        this.countAction = 0;
     }
 
 
@@ -65,7 +67,8 @@ export class FieldComponent {
      */
     public destroy(): FieldComponent {
         this.field = [];
-        this.nowWalk = Gamers.User;
+        this.countAction = 0;
+        this.activeGamer = Gamers.User;
         return this;
     }
 
@@ -75,8 +78,16 @@ export class FieldComponent {
      * @param cell
      */
     public handlerClick(cell: Cell): void {
-        if(!cell.isSelected && this.nowWalk === Gamers.User) {
+        if(!cell.isSelected) {
+            this.activeGamer = Gamers.User;
             this.setSelect(cell);
+
+            setTimeout(() => {
+                if(!this.gameOver) {
+                    this.autoAction();
+                }
+            }, 0);
+
         }
     }
 
@@ -105,14 +116,36 @@ export class FieldComponent {
             return;
         }
 
-        cell.setMark(this.nowWalk);
+        cell.setMark(this.activeGamer);
+        this.countAction++;
 
         // check winner
         let result: any[] = this.gameService.checkWinner(this.field);
         if(Array.isArray(result)) {
-            this.gameService.setWinnerClass(result);
-            this.setWinner.emit(this.nowWalk);
+            this.gameService.addWinnerClass(result);
+            this.setWinner.emit(this.activeGamer);
+            return;
         }
+
+        // check filled field
+        if(this.countAction >= (this.size * this.size)) {
+            this.setWinner.emit(null);
+            return;
+        }
+
+    }
+
+
+    /**
+     *
+     */
+    private autoAction(): void {
+        this.activeGamer = Gamers.AI;
+        let cell = this.gameService.getImportantCell(this.field);
+        if(!cell) {
+            cell = this.gameService.getRandomAvailableCell(this.field);
+        }
+        this.setSelect(cell);
     }
 
 

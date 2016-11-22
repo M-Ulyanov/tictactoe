@@ -76,8 +76,11 @@ export class GameComponent {
         if(winner === Gamers.User) {
             this.title = 'you win!';
         }
-        else {
+        else if(winner === Gamers.AI) {
             this.title = 'you lose!';
+        }
+        else {
+            this.title = 'no winner';
         }
     }
 

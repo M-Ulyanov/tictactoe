@@ -15,12 +15,12 @@ export class Cell {
 
 
     public isSelected: boolean;
-    public classWinner: string;
+    public gamer: number;
     public mark: string;
-    public className: string;
+    public classes: string;
 
     private marks: string[];
-    private classes: string[];
+    private classesMark: string[];
 
 
     /**
@@ -28,30 +28,32 @@ export class Cell {
      */
     constructor() {
         this.isSelected = false;
-        this.classWinner = '';
+        this.gamer = -1;
         this.mark = '';
+        this.classes = '';
+
         this.marks = ['x', 'o'];
-        this.classes = ['is-cross', 'is-zero'];
+        this.classesMark = ['is-cross', 'is-zero'];
     }
 
 
     /**
      *
-     * @param walk
+     * @param nowAction
      */
-    public setMark(walk: any): void {
+    public setMark(nowAction: any): void {
         this.isSelected = true;
-        this.mark = this.marks[walk];
-        this.className = `animated zoomIn ${this.classes[walk]}`;
+        this.mark = this.marks[nowAction];
+        this.gamer = nowAction;
+        this.classes = `animated zoomIn ${this.classesMark[nowAction]}`;
     }
 
 
     /**
      *
      */
-    public setWinnerClass() {
-        this.classWinner = 'is-winner';
-        console.log(this);
+    public addWinnerClass(): void {
+        this.classes += ' is-winner';
     }
 
 }
