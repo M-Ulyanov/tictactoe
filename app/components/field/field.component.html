@@ -1,0 +1,9 @@
+<div *ngIf="field.length > 0" class="container-field">
+    <div *ngFor="let row of field" class="container-row">
+        <div *ngFor="let cell of row" (click)="handlerClick(cell)" class="b-cell">
+            <div class="b-cell__mark {{ cell.className }} {{ cell.classWinner }}">
+                {{ cell.mark }}
+            </div>
+        </div>
+    </div>
+</div>

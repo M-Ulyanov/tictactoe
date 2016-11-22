@@ -1,0 +1,49 @@
+.container-field {
+    margin: 20px auto;
+    width: 100%;
+}
+
+.container-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.container-row:last-child .b-cell {
+    border-bottom: 0;
+}
+
+.b-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    width: 33%;
+    height: 83px;
+    cursor: pointer;
+    border-right: 1px solid #697C8A;
+    border-bottom: 1px solid #697C8A;
+    transition: 0.3s;
+}
+.b-cell:last-child {
+    border-right: 0;
+}
+.b-cell:hover {
+    background: #334b5d;
+    transition: 0.3s;
+}
+
+
+.b-cell__mark {
+    position: relative;
+    top: -5px;
+    font-size: 60px;
+    line-height: 1;
+}
+.b-cell__mark.is-cross {
+    color: #4DCDEF;
+}
+.b-cell__mark.is-zero {
+    color: #F1A7D9;
+}
+.b-cell__mark.is-winner {
+    color: #25D062;
+}

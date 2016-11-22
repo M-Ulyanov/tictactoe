@@ -1,0 +1,6 @@
+<div class="container-game">
+    <div class="b-title">{{ title }}</div>
+    <field-component [gameOver]="gameOver" (setWinner)="setWinner($event)"></field-component>
+    <a *ngIf="!isStart" href="#" (click)="start();" class="b-button">Start game</a>
+    <a *ngIf="gameOver" href="#" (click)="reload();" class="b-button">Play again</a>
+</div>
